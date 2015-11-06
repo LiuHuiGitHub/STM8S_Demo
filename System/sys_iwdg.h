@@ -3,8 +3,8 @@
 
 #include "typedef.h"
 
-extern void sys_iwdgInit(void);
-extern void sys_iwdgReset(void);
+void sys_iwdgInit(void);
+void sys_iwdgReset(void);
 
 
 #endif

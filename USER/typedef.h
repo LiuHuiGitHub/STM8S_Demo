@@ -53,6 +53,15 @@ typedef unsigned long		UINT32;
 typedef signed long			SINT32;
 #endif
 
+#define nop()				asm("nop")
+#define sleep()				asm("wfi")
+#define stop()				asm("halt")
+#define enable_interrupt()	asm("rim")
+#define disable_interrupt()	asm("sim")
+
+typedef unsigned char		uint8_t;
+typedef unsigned long       uint32_t;
+
 #ifdef  USE_FULL_ASSERT
 /**
   * @brief  The assert_param macro is used for function's parameters check.
@@ -65,7 +74,7 @@ typedef signed long			SINT32;
 /* Exported functions ------------------------------------------------------- */
 void assert_failed(uint8_t *file, uint32_t line);
 #else
-#define assert_param(expr) ((void)0)
+#define assert_param(expr) //((void)0)
 #endif /* USE_FULL_ASSERT */
 
 #endif

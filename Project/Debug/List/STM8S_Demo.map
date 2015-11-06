@@ -1,26 +1,23 @@
 ###############################################################################
 #
-# IAR ELF Linker V2.10.4.157 for STM8                     25/Oct/2015  14:50:45
+# IAR ELF Linker V2.10.4.157 for STM8                     07/Nov/2015  01:17:08
 # Copyright 2010-2015 IAR Systems AB.
 #
-#    Output file  =  
-#        C:\Users\LiuHui\Desktop\STM8\Project\Debug\Exe\STM8S_Demo.out
-#    Map file     =  
-#        C:\Users\LiuHui\Desktop\STM8\Project\Debug\List\STM8S_Demo.map
+#    Output file  =  G:\GitHub\STM8S_Demo\Project\Debug\Exe\STM8S_Demo.out
+#    Map file     =  G:\GitHub\STM8S_Demo\Project\Debug\List\STM8S_Demo.map
 #    Command line =  
-#        C:\Users\LiuHui\Desktop\STM8\Project\Debug\Obj\sys_adc.o
-#        C:\Users\LiuHui\Desktop\STM8\Project\Debug\Obj\sys_eeprom.o
-#        C:\Users\LiuHui\Desktop\STM8\Project\Debug\Obj\sys_iwdg.o
-#        C:\Users\LiuHui\Desktop\STM8\Project\Debug\Obj\sys_optionByte.o
-#        C:\Users\LiuHui\Desktop\STM8\Project\Debug\Obj\sys_pwm.o
-#        C:\Users\LiuHui\Desktop\STM8\Project\Debug\Obj\sys_task.o
-#        C:\Users\LiuHui\Desktop\STM8\Project\Debug\Obj\sys_tim2.o
-#        C:\Users\LiuHui\Desktop\STM8\Project\Debug\Obj\sys_uart.o
-#        C:\Users\LiuHui\Desktop\STM8\Project\Debug\Obj\sys_vector.o --redirect
+#        G:\GitHub\STM8S_Demo\Project\Debug\Obj\sys_adc.o
+#        G:\GitHub\STM8S_Demo\Project\Debug\Obj\sys_eeprom.o
+#        G:\GitHub\STM8S_Demo\Project\Debug\Obj\sys_iwdg.o
+#        G:\GitHub\STM8S_Demo\Project\Debug\Obj\sys_pwm.o
+#        G:\GitHub\STM8S_Demo\Project\Debug\Obj\sys_task.o
+#        G:\GitHub\STM8S_Demo\Project\Debug\Obj\sys_tim2.o
+#        G:\GitHub\STM8S_Demo\Project\Debug\Obj\sys_uart.o
+#        G:\GitHub\STM8S_Demo\Project\Debug\Obj\sys_vector.o --redirect
 #        _Printf=_PrintfFullNoMb --redirect _Scanf=_ScanfFullNoMb -o
-#        C:\Users\LiuHui\Desktop\STM8\Project\Debug\Exe\STM8S_Demo.out --map
-#        C:\Users\LiuHui\Desktop\STM8\Project\Debug\List\STM8S_Demo.map
-#        --config "C:\Program Files\IAR Systems\Embedded Workbench
+#        G:\GitHub\STM8S_Demo\Project\Debug\Exe\STM8S_Demo.out --map
+#        G:\GitHub\STM8S_Demo\Project\Debug\List\STM8S_Demo.map --config
+#        "C:\Program Files\IAR Systems\Embedded Workbench
 #        7.0\stm8\config\lnkstm8s103f3.icf" --config_def _CSTACK_SIZE=0x100
 #        --config_def _HEAP_SIZE=0x100 --entry __iar_program_start --debug_lib
 #
@@ -63,182 +60,187 @@ __rt_version               = 4
           ro section .near_func.textrw_init, ro section .tiny.data_init,
           ro section .tiny.rodata_init };
 
-  Section            Kind      Address   Size  Object
-  -------            ----      -------   ----  ------
-"A1":                                     0xc
-  .vregs             uninit   0x000000    0xc  vregs.o [4]
-                            - 0x00000c    0xc
+  Section          Kind      Address   Size  Object
+  -------          ----      -------   ----  ------
+"A1":                                   0xc
+  .vregs           uninit   0x000000    0xc  vregs.o [4]
+                          - 0x00000c    0xc
 
-"P2":                                    0x17
-  P2 s0                       0x00000c   0x17  <Init block>
-    .near.bss        inited   0x00000c    0xa  sys_uart.o [1]
-    .near.data       inited   0x000016    0x2  sys_optionByte.o [1]
-    .near.bss        inited   0x000018    0x2  sys_adc.o [1]
-    .near.bss        inited   0x00001a    0x1  sys_task.o [1]
-    .near.bss        inited   0x00001b    0x1  sys_task.o [1]
-    .near.bss        inited   0x00001c    0x1  sys_task.o [1]
-    .near.bss        inited   0x00001d    0x1  sys_task.o [1]
-    .near.bss        inited   0x00001e    0x1  sys_task.o [1]
-    .near.bss        inited   0x00001f    0x1  sys_task.o [1]
-    .near.bss        inited   0x000020    0x1  sys_uart.o [1]
-    .near.bss        inited   0x000021    0x1  sys_uart.o [1]
-    .near.bss        inited   0x000022    0x1  sys_uart.o [1]
-                            - 0x000023   0x17
+"P2":                                  0x27
+  .near.bss        zero     0x00000c   0x14  sys_task.o [1]
+  .near.bss        zero     0x000020    0xb  sys_uart.o [1]
+  .near.bss        zero     0x00002b    0x1  sys_task.o [1]
+  .near.bss        zero     0x00002c    0x1  sys_task.o [1]
+  .near.bss        zero     0x00002d    0x1  sys_task.o [1]
+  .near.bss        zero     0x00002e    0x1  sys_task.o [1]
+  .near.bss        zero     0x00002f    0x1  sys_task.o [1]
+  .near.bss        zero     0x000030    0x1  sys_task.o [1]
+  .near.bss        zero     0x000031    0x1  sys_uart.o [1]
+  .near.bss        zero     0x000032    0x1  sys_uart.o [1]
+                          - 0x000033   0x27
 
-"A2":                                   0x100
-  CSTACK                      0x000300  0x100  <Block>
-    CSTACK           uninit   0x000300  0x100  <Block tail>
-                            - 0x000400  0x100
+"A2":                                 0x100
+  CSTACK                    0x000300  0x100  <Block>
+    CSTACK         uninit   0x000300  0x100  <Block tail>
+                          - 0x000400  0x100
 
-Absolute sections, part 1 of 17:          0x1
-  .near.noinit       uninit   0x005000    0x1  sys_task.o [1]
-                            - 0x005001    0x1
+Absolute sections, part 1 of 18:        0x1
+  .near.noinit     uninit   0x005000    0x1  sys_task.o [1]
+                          - 0x005001    0x1
 
-Absolute sections, part 2 of 17:          0x3
-  .near.noinit       uninit   0x005002    0x1  sys_task.o [1]
-  .near.noinit       uninit   0x005003    0x1  sys_task.o [1]
-  .near.noinit       uninit   0x005004    0x1  sys_task.o [1]
-                            - 0x005005    0x3
+Absolute sections, part 2 of 18:        0x3
+  .near.noinit     uninit   0x005002    0x1  sys_task.o [1]
+  .near.noinit     uninit   0x005003    0x1  sys_task.o [1]
+  .near.noinit     uninit   0x005004    0x1  sys_task.o [1]
+                          - 0x005005    0x3
 
-Absolute sections, part 3 of 17:          0x3
-  .near.noinit       uninit   0x005011    0x1  sys_uart.o [1]
-  .near.noinit       uninit   0x005012    0x1  sys_uart.o [1]
-  .near.noinit       uninit   0x005013    0x1  sys_uart.o [1]
-                            - 0x005014    0x3
+Absolute sections, part 3 of 18:        0x3
+  .near.noinit     uninit   0x005011    0x1  sys_uart.o [1]
+  .near.noinit     uninit   0x005012    0x1  sys_uart.o [1]
+  .near.noinit     uninit   0x005013    0x1  sys_uart.o [1]
+                          - 0x005014    0x3
 
-Absolute sections, part 4 of 17:          0x2
-  .near.noinit       uninit   0x00505b    0x1  sys_optionByte.o [1]
-  .near.noinit       uninit   0x00505c    0x1  sys_optionByte.o [1]
-                            - 0x00505d    0x2
+Absolute sections, part 4 of 18:        0x2
+  .near.noinit     uninit   0x00505b    0x1  sys_eeprom.o [1]
+  .near.noinit     uninit   0x00505c    0x1  sys_eeprom.o [1]
+                          - 0x00505d    0x2
 
-Absolute sections, part 5 of 17:          0x1
-  .near.noinit       uninit   0x00505f    0x1  sys_optionByte.o [1]
-                            - 0x005060    0x1
+Absolute sections, part 5 of 18:        0x1
+  .near.noinit     uninit   0x00505f    0x1  sys_eeprom.o [1]
+                          - 0x005060    0x1
 
-Absolute sections, part 6 of 17:          0x1
-  .near.noinit       uninit   0x005064    0x1  sys_optionByte.o [1]
-                            - 0x005065    0x1
+Absolute sections, part 6 of 18:        0x1
+  .near.noinit     uninit   0x005064    0x1  sys_eeprom.o [1]
+                          - 0x005065    0x1
 
-Absolute sections, part 7 of 17:          0x1
-  .near.noinit       uninit   0x0050c0    0x1  sys_iwdg.o [1]
-                            - 0x0050c1    0x1
+Absolute sections, part 7 of 18:        0x1
+  .near.noinit     uninit   0x0050c0    0x1  sys_iwdg.o [1]
+                          - 0x0050c1    0x1
 
-Absolute sections, part 8 of 17:          0x2
-  .near.noinit       uninit   0x0050c6    0x1  sys_task.o [1]
-  .near.noinit       uninit   0x0050c7    0x1  sys_uart.o [1]
-                            - 0x0050c8    0x2
+Absolute sections, part 8 of 18:        0x2
+  .near.noinit     uninit   0x0050c6    0x1  sys_task.o [1]
+  .near.noinit     uninit   0x0050c7    0x1  sys_uart.o [1]
+                          - 0x0050c8    0x2
 
-Absolute sections, part 9 of 17:          0x3
-  .near.noinit       uninit   0x0050e0    0x1  sys_iwdg.o [1]
-  .near.noinit       uninit   0x0050e1    0x1  sys_iwdg.o [1]
-  .near.noinit       uninit   0x0050e2    0x1  sys_iwdg.o [1]
-                            - 0x0050e3    0x3
+Absolute sections, part 9 of 18:        0x3
+  .near.noinit     uninit   0x0050e0    0x1  sys_iwdg.o [1]
+  .near.noinit     uninit   0x0050e1    0x1  sys_iwdg.o [1]
+  .near.noinit     uninit   0x0050e2    0x1  sys_iwdg.o [1]
+                          - 0x0050e3    0x3
 
-Absolute sections, part 10 of 17:         0x7
-  .near.noinit       uninit   0x005230    0x1  sys_uart.o [1]
-  .near.noinit       uninit   0x005231    0x1  sys_uart.o [1]
-  .near.noinit       uninit   0x005232    0x1  sys_uart.o [1]
-  .near.noinit       uninit   0x005233    0x1  sys_uart.o [1]
-  .near.noinit       uninit   0x005234    0x1  sys_uart.o [1]
-  .near.noinit       uninit   0x005235    0x1  sys_uart.o [1]
-  .near.noinit       uninit   0x005236    0x1  sys_uart.o [1]
-                            - 0x005237    0x7
+Absolute sections, part 10 of 18:       0xb
+  .near.noinit     uninit   0x005230    0x1  sys_uart.o [1]
+  .near.noinit     uninit   0x005231    0x1  sys_uart.o [1]
+  .near.noinit     uninit   0x005232    0x1  sys_uart.o [1]
+  .near.noinit     uninit   0x005233    0x1  sys_uart.o [1]
+  .near.noinit     uninit   0x005234    0x1  sys_uart.o [1]
+  .near.noinit     uninit   0x005235    0x1  sys_uart.o [1]
+  .near.noinit     uninit   0x005236    0x1  sys_uart.o [1]
+  .near.noinit     uninit   0x005237    0x1  sys_uart.o [1]
+  .near.noinit     uninit   0x005238    0x1  sys_uart.o [1]
+  .near.noinit     uninit   0x005239    0x1  sys_uart.o [1]
+  .near.noinit     uninit   0x00523a    0x1  sys_uart.o [1]
+                          - 0x00523b    0xb
 
-Absolute sections, part 11 of 17:         0x1
-  .near.noinit       uninit   0x005238    0x1  sys_uart.o [1]
-                            - 0x005239    0x1
+Absolute sections, part 11 of 18:       0x1
+  .near.noinit     uninit   0x005300    0x1  sys_tim2.o [1]
+                          - 0x005301    0x1
 
-Absolute sections, part 12 of 17:         0x1
-  .near.noinit       uninit   0x005304    0x1  sys_tim2.o [1]
-                            - 0x005305    0x1
+Absolute sections, part 12 of 18:       0x2
+  .near.noinit     uninit   0x005303    0x1  sys_tim2.o [1]
+  .near.noinit     uninit   0x005304    0x1  sys_tim2.o [1]
+                          - 0x005305    0x2
 
-Absolute sections, part 13 of 17:         0x1
-  .near.noinit       uninit   0x005340    0x1  sys_task.o [1]
-                            - 0x005341    0x1
+Absolute sections, part 13 of 18:       0x1
+  .near.noinit     uninit   0x005306    0x1  sys_tim2.o [1]
+                          - 0x005307    0x1
 
-Absolute sections, part 14 of 17:         0x3
-  .near.noinit       uninit   0x005343    0x1  sys_task.o [1]
-  .near.noinit       uninit   0x005344    0x1  sys_task.o [1]
-  .near.noinit       uninit   0x005345    0x1  sys_task.o [1]
-                            - 0x005346    0x3
+Absolute sections, part 14 of 18:       0x3
+  .near.noinit     uninit   0x00530e    0x1  sys_tim2.o [1]
+  .near.noinit     uninit   0x00530f    0x1  sys_tim2.o [1]
+  .near.noinit     uninit   0x005310    0x1  sys_tim2.o [1]
+                          - 0x005311    0x3
 
-Absolute sections, part 15 of 17:         0x2
-  .near.noinit       uninit   0x005347    0x1  sys_task.o [1]
-  .near.noinit       uninit   0x005348    0x1  sys_task.o [1]
-                            - 0x005349    0x2
+Absolute sections, part 15 of 18:       0x1
+  .near.noinit     uninit   0x005340    0x1  sys_task.o [1]
+                          - 0x005341    0x1
 
-Absolute sections, part 16 of 17:         0x1
-  .near.noinit       uninit   0x0053e0    0x1  sys_adc.o [1]
-                            - 0x0053e1    0x1
+Absolute sections, part 16 of 18:       0x3
+  .near.noinit     uninit   0x005343    0x1  sys_task.o [1]
+  .near.noinit     uninit   0x005344    0x1  sys_task.o [1]
+  .near.noinit     uninit   0x005345    0x1  sys_task.o [1]
+                          - 0x005346    0x3
 
-Absolute sections, part 17 of 17:         0x4
-  .near.noinit       uninit   0x005400    0x1  sys_adc.o [1]
-  .near.noinit       uninit   0x005401    0x1  sys_adc.o [1]
-  .near.noinit       uninit   0x005402    0x1  sys_adc.o [1]
-  .near.noinit       uninit   0x005403    0x1  sys_adc.o [1]
-                            - 0x005404    0x4
+Absolute sections, part 17 of 18:       0x2
+  .near.noinit     uninit   0x005347    0x1  sys_task.o [1]
+  .near.noinit     uninit   0x005348    0x1  sys_task.o [1]
+                          - 0x005349    0x2
 
-"A3":                                    0x80
-  INTVEC                      0x008000   0x80  <Block>
-    .intvec          const    0x008000   0x80  interrupt.o [4]
-                            - 0x008080   0x80
+Absolute sections, part 18 of 18:       0x3
+  .near.noinit     uninit   0x005401    0x1  sys_adc.o [1]
+  .near.noinit     uninit   0x005402    0x1  sys_adc.o [1]
+  .near.noinit     uninit   0x005403    0x1  sys_adc.o [1]
+                          - 0x005404    0x3
 
-"P3":                                   0x4f3
-  .near_func.text    ro code  0x008080   0xc1  sys_adc.o [1]
-  .near_func.text    ro code  0x008141   0xb8  long.o [4]
-  .near_func.text    ro code  0x0081f9   0x74  sys_task.o [1]
-  .near_func.text    ro code  0x00826d   0x5e  sys_uart.o [1]
-  .near_func.text    ro code  0x0082cb   0x40  sys_optionByte.o [1]
-  .near_func.text    ro code  0x00830b   0x39  sys_uart.o [1]
-  .near_func.text    ro code  0x008344   0x36  memcmp.o [4]
-  .near_func.text    ro code  0x00837a   0x34  sys_task.o [1]
-  .near_func.text    ro code  0x0083ae   0x30  sys_uart.o [1]
-  .near_func.text    ro code  0x0083de   0x28  init_small.o [4]
-  .near_func.text    ro code  0x008406   0x25  memcpy.o [4]
-  .iar.init_table    const    0x00842b    0xa  - Linker created -
-  .near_func.text    ro code  0x008435   0x1f  vreg_util.o [4]
-  .near_func.text    ro code  0x008454   0x1e  sys_iwdg.o [1]
-  .near_func.text    ro code  0x008472   0x19  sys_task.o [1]
-  .near_func.text    ro code  0x00848b   0x17  init.o [4]
-  .near_func.text    ro code  0x0084a2   0x16  sys_uart.o [1]
-  .near_func.text    ro code  0x0084b8   0x14  __dbg_xxexit.o [3]
-  .near_func.text    ro code  0x0084cc   0x13  cstartup.o [4]
-  .near_func.text    ro code  0x0084df   0x12  sys_task.o [1]
-  .near_func.text    ro code  0x0084f1    0xd  sys_task.o [1]
-  .near_func.text    ro code  0x0084fe    0xd  dc_util.o [4]
-  .near_func.text    ro code  0x00850b    0xc  long_util.o [4]
-  .near.rodata       const    0x008517    0xb  sys_optionByte.o [1]
-  .near.rodata       const    0x008522    0x6  sys_task.o [1]
-  .near_func.text    ro code  0x008528    0x5  sys_iwdg.o [1]
-  .near_func.text    ro code  0x00852d    0x5  sys_tim2.o [1]
-  .near_func.text    ro code  0x008532    0x5  short.o [4]
-  .near_func.text    ro code  0x008537    0x5  cexit.o [4]
-  .near_func.text    ro code  0x00853c    0x3  interrupt.o [4]
-  .near_func.text    ro code  0x00853f    0x3  low_level_init.o [4]
-  .near_func.text    ro code  0x008542    0x3  exit.o [4]
-  .near_func.text    ro code  0x008545    0x3  unhandled_exception.o [4]
-  .near_func.text    ro code  0x008548    0x1  sys_task.o [1]
-  .near_func.text    ro code  0x008549    0x1  sys_task.o [1]
-  .near_func.text    ro code  0x00854a    0x1  sys_task.o [1]
-  .near_func.text    ro code  0x00854b    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x00854c    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x00854d    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x00854e    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x00854f    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x008550    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x008551    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x008552    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x008553    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x008554    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x008555    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x008556    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x008557    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x008558    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x008559    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x00855a    0x1  sys_vector.o [1]
-  .near_func.text    ro code  0x00855b    0x1  __dbg_break.o [3]
-  Initializer bytes  const    0x00855c   0x17  <for P2 s0>
-                            - 0x008573  0x4f3
+"A3":                                  0x80
+  INTVEC                    0x008000   0x80  <Block>
+    .intvec        const    0x008000   0x80  interrupt.o [4]
+                          - 0x008080   0x80
+
+"P3":                                 0x389
+  .near_func.text  ro code  0x008080   0x77  sys_task.o [1]
+  .near_func.text  ro code  0x0080f7   0x4d  sys_uart.o [1]
+  .near_func.text  ro code  0x008144   0x3d  sys_uart.o [1]
+  .near_func.text  ro code  0x008181   0x36  sys_eeprom.o [1]
+  .near_func.text  ro code  0x0081b7   0x36  memcmp.o [4]
+  .near_func.text  ro code  0x0081ed   0x32  vreg_util.o [4]
+  .near_func.text  ro code  0x00821f   0x2d  sys_task.o [1]
+  .near_func.text  ro code  0x00824c   0x2d  sys_uart.o [1]
+  .near_func.text  ro code  0x008279   0x2a  sys_uart.o [1]
+  .near_func.text  ro code  0x0082a3   0x25  memcpy.o [4]
+  .iar.init_table  const    0x0082c8    0x8  - Linker created -
+  .near_func.text  ro code  0x0082d0   0x1e  sys_iwdg.o [1]
+  .near_func.text  ro code  0x0082ee   0x1e  init_small.o [4]
+  .near_func.text  ro code  0x00830c   0x19  sys_task.o [1]
+  .near_func.text  ro code  0x008325   0x19  sys_tim2.o [1]
+  .near_func.text  ro code  0x00833e   0x17  init.o [4]
+  .near_func.text  ro code  0x008355   0x14  __dbg_xxexit.o [3]
+  .near_func.text  ro code  0x008369   0x13  cstartup.o [4]
+  .near_func.text  ro code  0x00837c   0x12  sys_task.o [1]
+  .near_func.text  ro code  0x00838e   0x10  sys_task.o [1]
+  .near_func.text  ro code  0x00839e    0xe  sys_eeprom.o [1]
+  .near_func.text  ro code  0x0083ac    0xd  sys_adc.o [1]
+  .near_func.text  ro code  0x0083b9    0xd  sys_task.o [1]
+  .near.rodata     const    0x0083c6    0xa  sys_eeprom.o [1]
+  .near_func.text  ro code  0x0083d0    0x9  sys_uart.o [1]
+  .near_func.text  ro code  0x0083d9    0x5  sys_iwdg.o [1]
+  .near_func.text  ro code  0x0083de    0x5  sys_tim2.o [1]
+  .near_func.text  ro code  0x0083e3    0x5  cexit.o [4]
+  .near_func.text  ro code  0x0083e8    0x3  interrupt.o [4]
+  .near_func.text  ro code  0x0083eb    0x3  low_level_init.o [4]
+  .near_func.text  ro code  0x0083ee    0x3  exit.o [4]
+  .near_func.text  ro code  0x0083f1    0x3  unhandled_exception.o [4]
+  .near.rodata     const    0x0083f4    0x2  sys_eeprom.o [1]
+  .near_func.text  ro code  0x0083f6    0x1  sys_task.o [1]
+  .near_func.text  ro code  0x0083f7    0x1  sys_task.o [1]
+  .near_func.text  ro code  0x0083f8    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x0083f9    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x0083fa    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x0083fb    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x0083fc    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x0083fd    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x0083fe    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x0083ff    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x008400    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x008401    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x008402    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x008403    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x008404    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x008405    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x008406    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x008407    0x1  sys_vector.o [1]
+  .near_func.text  ro code  0x008408    0x1  __dbg_break.o [3]
+                          - 0x008409  0x389
 
 
 *******************************************************************************
@@ -247,11 +249,9 @@ Absolute sections, part 17 of 17:         0x4
 
           Address   Size
           -------   ----
-Copy (__iar_copy_init2)
-    1 source range, total size 0x17:
-          0x00855c  0x17
-    1 destination range, total size 0x17:
-          0x00000c  0x17
+Zero (__iar_zero_init2)
+    1 destination range, total size 0x27:
+          0x00000c  0x27
 
 
 
@@ -262,16 +262,16 @@ Copy (__iar_copy_init2)
     Module                 ro code  ro data  rw data  rw data
                                                        (abs)
     ------                 -------  -------  -------  -------
-C:\Users\LiuHui\Desktop\STM8\Project\Debug\Obj: [1]
-    sys_adc.o                  193        2        2        5
+G:\GitHub\STM8S_Demo\Project\Debug\Obj: [1]
+    sys_adc.o                   13                          3
+    sys_eeprom.o                68       12                 4
     sys_iwdg.o                  35                          4
-    sys_optionByte.o            64       13        2        4
-    sys_task.o                 227       12        6       11
-    sys_tim2.o                   5                          1
-    sys_uart.o                 221       13       13       12
+    sys_task.o                 238                26       11
+    sys_tim2.o                  30                          7
+    sys_uart.o                 234                13       15
     sys_vector.o                16
     ---------------------------------------------------------
-    Total:                     761       40       23       37
+    Total:                     634       12       39       44
 
 command line: [2]
     ---------------------------------------------------------
@@ -286,26 +286,22 @@ dbgstm8smd.a: [3]
 dlstm8smn.a: [4]
     cexit.o                      5
     cstartup.o                  19
-    dc_util.o                   13
     exit.o                       3
     init.o                      23
-    init_small.o                40
+    init_small.o                30
     interrupt.o                  3      128
-    long.o                     184
-    long_util.o                 12
     low_level_init.o             3
     memcmp.o                    54
     memcpy.o                    37
-    short.o                      5
     unhandled_exception.o        3
-    vreg_util.o                 31
+    vreg_util.o                 50
     vregs.o                                       12
     ---------------------------------------------------------
-    Total:                     435      128       12
+    Total:                     230      128       12
 
-    Linker created                       10      256
+    Linker created                        8      256
 -------------------------------------------------------------
-    Grand Total:             1 217      178      291       37
+    Grand Total:               885      148      307       44
 
 
 *******************************************************************************
@@ -314,8 +310,8 @@ dlstm8smn.a: [4]
 
 Entry                    Address  Size  Type      Object
 -----                    -------  ----  ----      ------
-.iar.init_table$$Base   0x00842b         --   Gb  - Linker created -
-.iar.init_table$$Limit  0x008435         --   Gb  - Linker created -
+.iar.init_table$$Base   0x0082c8         --   Gb  - Linker created -
+.iar.init_table$$Limit  0x0082d0         --   Gb  - Linker created -
 ?b0                     0x000000        Data  Gb  vregs.o [4]
 ?b1                     0x000001        Data  Gb  vregs.o [4]
 ?b10                    0x00000a        Data  Gb  vregs.o [4]
@@ -328,81 +324,76 @@ Entry                    Address  Size  Type      Object
 ?b7                     0x000007        Data  Gb  vregs.o [4]
 ?b8                     0x000008        Data  Gb  vregs.o [4]
 ?b9                     0x000009        Data  Gb  vregs.o [4]
-?dc32_l0                0x0084fe        Code  Gb  dc_util.o [4]
 ?e0                     0x000001        Data  Gb  vregs.o [4]
 ?e1                     0x000005        Data  Gb  vregs.o [4]
 ?e2                     0x000009        Data  Gb  vregs.o [4]
+?epilogue_w4            0x008214        Code  Gb  vreg_util.o [4]
 ?l0                     0x000000        Data  Gb  vregs.o [4]
 ?l1                     0x000004        Data  Gb  vregs.o [4]
 ?l2                     0x000008        Data  Gb  vregs.o [4]
-?load32_l0_0x           0x00850b        Code  Gb  long_util.o [4]
-?mov_w2_w1              0x00844d        Code  Gb  vreg_util.o [4]
-?push_w4                0x008435        Code  Gb  vreg_util.o [4]
-?sdiv32_l0_dl_l1        0x0081ae        Code  Gb  long.o [4]
-?sdiv32_l0_l0_l1        0x0081b3        Code  Gb  long.o [4]
-?smod32_l1_l0_l1        0x0081b3        Code  Gb  long.o [4]
-?srl16_x_x_4            0x008532        Code  Gb  short.o [4]
-?udiv32_l0_l0_l1        0x008141        Code  Gb  long.o [4]
-?umod32_l1_l0_l1        0x008141        Code  Gb  long.o [4]
+?mov_w2_w1              0x008218        Code  Gb  vreg_util.o [4]
+?pop_w4                 0x008205        Code  Gb  vreg_util.o [4]
+?push_w4                0x0081ed        Code  Gb  vreg_util.o [4]
 ?w0                     0x000000        Data  Gb  vregs.o [4]
 ?w1                     0x000002        Data  Gb  vregs.o [4]
 ?w2                     0x000004        Data  Gb  vregs.o [4]
 ?w3                     0x000006        Data  Gb  vregs.o [4]
 ?w4                     0x000008        Data  Gb  vregs.o [4]
 ?w5                     0x00000a        Data  Gb  vregs.o [4]
-ADC1_IRQHandler         0x008559   0x1  Code  Gb  sys_vector.o [1]
-ADC_DB0RH               0x0053e0   0x1  Data  Gb  sys_adc.o [1]
-AWU_IRQHandler          0x00854d   0x1  Code  Gb  sys_vector.o [1]
-CLK_IRQHandler          0x00854e   0x1  Code  Gb  sys_vector.o [1]
+ADC1_IRQHandler         0x008406   0x1  Code  Gb  sys_vector.o [1]
+AWU_IRQHandler          0x0083fa   0x1  Code  Gb  sys_vector.o [1]
+CLK_IRQHandler          0x0083fb   0x1  Code  Gb  sys_vector.o [1]
 CLK_PCKENR1             0x0050c7   0x1  Data  Gb  sys_uart.o [1]
 CSTACK$$Base            0x000300         --   Gb  - Linker created -
 CSTACK$$Limit           0x000400         --   Gb  - Linker created -
-EEPROM_EEC_IRQHandler   0x00855a   0x1  Code  Gb  sys_vector.o [1]
-EXTI_PORTA_IRQHandler   0x00854f   0x1  Code  Gb  sys_vector.o [1]
-EXTI_PORTB_IRQHandler   0x008550   0x1  Code  Gb  sys_vector.o [1]
-EXTI_PORTC_IRQHandler   0x008551   0x1  Code  Gb  sys_vector.o [1]
-EXTI_PORTD_IRQHandler   0x008552   0x1  Code  Gb  sys_vector.o [1]
-EXTI_PORTE_IRQHandler   0x008553   0x1  Code  Gb  sys_vector.o [1]
-FLASH_DUKR              0x005064   0x1  Data  Gb  sys_optionByte.o [1]
-I2C_IRQHandler          0x008558   0x1  Code  Gb  sys_vector.o [1]
+EEPROM_EEC_IRQHandler   0x008407   0x1  Code  Gb  sys_vector.o [1]
+EXTI_PORTA_IRQHandler   0x0083fc   0x1  Code  Gb  sys_vector.o [1]
+EXTI_PORTB_IRQHandler   0x0083fd   0x1  Code  Gb  sys_vector.o [1]
+EXTI_PORTC_IRQHandler   0x0083fe   0x1  Code  Gb  sys_vector.o [1]
+EXTI_PORTD_IRQHandler   0x0083ff   0x1  Code  Gb  sys_vector.o [1]
+EXTI_PORTE_IRQHandler   0x008400   0x1  Code  Gb  sys_vector.o [1]
+FLASH_DUKR              0x005064   0x1  Data  Gb  sys_eeprom.o [1]
+I2C_IRQHandler          0x008405   0x1  Code  Gb  sys_vector.o [1]
 INTVEC$$Base            0x008000         --   Gb  - Linker created -
 INTVEC$$Limit           0x008080         --   Gb  - Linker created -
 IWDG_KR                 0x0050e0   0x1  Data  Gb  sys_iwdg.o [1]
 IWDG_RLR                0x0050e2   0x1  Data  Gb  sys_iwdg.o [1]
-OptionByte              0x008517   0xb  Data  Gb  sys_optionByte.o [1]
-Region$$Table$$Base     0x00842b         --   Gb  - Linker created -
-Region$$Table$$Limit    0x008435         --   Gb  - Linker created -
-SPI_IRQHandler          0x008554   0x1  Code  Gb  sys_vector.o [1]
+OptionBytes             0x0083c6   0xa  Data  Gb  sys_eeprom.o [1]
+Region$$Table$$Base     0x0082c8         --   Gb  - Linker created -
+Region$$Table$$Limit    0x0082d0         --   Gb  - Linker created -
+RxIndex                 0x000031   0x1  Data  Lc  sys_uart.o [1]
+RxOverCount             0x000032   0x1  Data  Lc  sys_uart.o [1]
+Rx_Buff                 0x000020   0xb  Data  Lc  sys_uart.o [1]
+SPI_IRQHandler          0x008401   0x1  Code  Gb  sys_vector.o [1]
 TIM1_CAP_COM_IRQHandler
-                        0x008556   0x1  Code  Gb  sys_vector.o [1]
+                        0x008403   0x1  Code  Gb  sys_vector.o [1]
 TIM1_UPD_OVF_TRG_BRK_IRQHandler
-                        0x008555   0x1  Code  Gb  sys_vector.o [1]
+                        0x008402   0x1  Code  Gb  sys_vector.o [1]
+TIM2_ARRH               0x00530f   0x1  Data  Gb  sys_tim2.o [1]
+TIM2_ARRL               0x005310   0x1  Data  Gb  sys_tim2.o [1]
 TIM2_CAP_COM_IRQHandler
-                        0x008557   0x1  Code  Gb  sys_vector.o [1]
+                        0x008404   0x1  Code  Gb  sys_vector.o [1]
 TIM2_UPD_OVF_BRK_IRQHandler
-                        0x00852d   0x5  Code  Gb  sys_tim2.o [1]
+                        0x0083de   0x5  Code  Gb  sys_tim2.o [1]
 TIM4_ARR                0x005348   0x1  Data  Gb  sys_task.o [1]
 TIM4_UPD_OVF_IRQHandler
-                        0x0084df  0x12  Code  Gb  sys_task.o [1]
-TLI_IRQHandler          0x00854c   0x1  Code  Gb  sys_vector.o [1]
-TRAP_IRQHandler         0x00854b   0x1  Code  Gb  sys_vector.o [1]
-TxEnd                   0x000021   0x1  Data  Gb  sys_uart.o [1]
-TxIndex                 0x000020   0x1  Data  Gb  sys_uart.o [1]
-Tx_Buff                 0x00000c   0xa  Data  Gb  sys_uart.o [1]
+                        0x00837c  0x12  Code  Gb  sys_task.o [1]
+TLI_IRQHandler          0x0083f9   0x1  Code  Gb  sys_vector.o [1]
+TRAP_IRQHandler         0x0083f8   0x1  Code  Gb  sys_vector.o [1]
 UART1_BRR1              0x005232   0x1  Data  Gb  sys_uart.o [1]
 UART1_BRR2              0x005233   0x1  Data  Gb  sys_uart.o [1]
 UART1_DR                0x005231   0x1  Data  Gb  sys_uart.o [1]
-UART1_RX_IRQHandler     0x0084a2  0x16  Code  Gb  sys_uart.o [1]
-UART1_TX_IRQHandler     0x0083ae  0x30  Code  Gb  sys_uart.o [1]
+UART1_GTR               0x005239   0x1  Data  Gb  sys_uart.o [1]
+UART1_PSCR              0x00523a   0x1  Data  Gb  sys_uart.o [1]
+UART1_RX_IRQHandler     0x00824c  0x2d  Code  Gb  sys_uart.o [1]
 _A_ADC_CR1              0x005401   0x1  Data  Gb  sys_adc.o [1]
 _A_ADC_CR2              0x005402   0x1  Data  Gb  sys_adc.o [1]
 _A_ADC_CR3              0x005403   0x1  Data  Gb  sys_adc.o [1]
-_A_ADC_CSR              0x005400   0x1  Data  Gb  sys_adc.o [1]
 _A_CLK_CKDIVR           0x0050c6   0x1  Data  Gb  sys_task.o [1]
 _A_CLK_ICKR             0x0050c0   0x1  Data  Gb  sys_iwdg.o [1]
-_A_FLASH_CR2            0x00505b   0x1  Data  Gb  sys_optionByte.o [1]
-_A_FLASH_IAPSR          0x00505f   0x1  Data  Gb  sys_optionByte.o [1]
-_A_FLASH_NCR2           0x00505c   0x1  Data  Gb  sys_optionByte.o [1]
+_A_FLASH_CR2            0x00505b   0x1  Data  Gb  sys_eeprom.o [1]
+_A_FLASH_IAPSR          0x00505f   0x1  Data  Gb  sys_eeprom.o [1]
+_A_FLASH_NCR2           0x00505c   0x1  Data  Gb  sys_eeprom.o [1]
 _A_IWDG_PR              0x0050e1   0x1  Data  Gb  sys_iwdg.o [1]
 _A_PA_CR1               0x005003   0x1  Data  Gb  sys_task.o [1]
 _A_PA_CR2               0x005004   0x1  Data  Gb  sys_task.o [1]
@@ -411,6 +402,10 @@ _A_PA_ODR               0x005000   0x1  Data  Gb  sys_task.o [1]
 _A_PD_CR1               0x005012   0x1  Data  Gb  sys_uart.o [1]
 _A_PD_CR2               0x005013   0x1  Data  Gb  sys_uart.o [1]
 _A_PD_DDR               0x005011   0x1  Data  Gb  sys_uart.o [1]
+_A_TIM2_CR1             0x005300   0x1  Data  Gb  sys_tim2.o [1]
+_A_TIM2_EGR             0x005306   0x1  Data  Gb  sys_tim2.o [1]
+_A_TIM2_IER             0x005303   0x1  Data  Gb  sys_tim2.o [1]
+_A_TIM2_PSCR            0x00530e   0x1  Data  Gb  sys_tim2.o [1]
 _A_TIM2_SR1             0x005304   0x1  Data  Gb  sys_tim2.o [1]
 _A_TIM4_CR1             0x005340   0x1  Data  Gb  sys_task.o [1]
 _A_TIM4_EGR             0x005345   0x1  Data  Gb  sys_task.o [1]
@@ -420,73 +415,74 @@ _A_TIM4_SR              0x005344   0x1  Data  Gb  sys_task.o [1]
 _A_UART1_CR1            0x005234   0x1  Data  Gb  sys_uart.o [1]
 _A_UART1_CR2            0x005235   0x1  Data  Gb  sys_uart.o [1]
 _A_UART1_CR3            0x005236   0x1  Data  Gb  sys_uart.o [1]
+_A_UART1_CR4            0x005237   0x1  Data  Gb  sys_uart.o [1]
 _A_UART1_CR5            0x005238   0x1  Data  Gb  sys_uart.o [1]
 _A_UART1_SR             0x005230   0x1  Data  Gb  sys_uart.o [1]
-__DebugBreak            0x00855b   0x1  Code  Gb  __dbg_break.o [3]
-__exit                  0x0084b8  0x14  Code  Gb  __dbg_xxexit.o [3]
-__iar_copy_init2        0x0083de        Code  Gb  init_small.o [4]
-__iar_data_init2        0x00848b  0x17  Code  Gb  init.o [4]
-__iar_program_start     0x0084cc        Code  Gb  cstartup.o [4]
+__DebugBreak            0x008408   0x1  Code  Gb  __dbg_break.o [3]
+__exit                  0x008355  0x14  Code  Gb  __dbg_xxexit.o [3]
+__iar_data_init2        0x00833e  0x17  Code  Gb  init.o [4]
+__iar_program_start     0x008369        Code  Gb  cstartup.o [4]
 __iar_unhandled_exception
-                        0x008545        Code  Gb  unhandled_exception.o [4]
+                        0x0083f1        Code  Gb  unhandled_exception.o [4]
+__iar_zero_init2        0x0082ee        Code  Gb  init_small.o [4]
 __intvec                0x008000        Data  Gb  interrupt.o [4]
-__low_level_init        0x00853f   0x3  Code  Gb  low_level_init.o [4]
-_exit                   0x008537        Code  Gb  cexit.o [4]
-_interrupt_1            0x00854b        Code  Gb  sys_vector.o [1]
-_interrupt_12           0x008554        Code  Gb  sys_vector.o [1]
-_interrupt_13           0x008555        Code  Gb  sys_vector.o [1]
-_interrupt_14           0x008556        Code  Gb  sys_vector.o [1]
-_interrupt_15           0x00852d        Code  Gb  sys_tim2.o [1]
-_interrupt_16           0x008557        Code  Gb  sys_vector.o [1]
-_interrupt_19           0x0083ae        Code  Gb  sys_uart.o [1]
-_interrupt_2            0x00854c        Code  Gb  sys_vector.o [1]
-_interrupt_20           0x0084a2        Code  Gb  sys_uart.o [1]
-_interrupt_21           0x008558        Code  Gb  sys_vector.o [1]
-_interrupt_24           0x008559        Code  Gb  sys_vector.o [1]
-_interrupt_25           0x0084df        Code  Gb  sys_task.o [1]
-_interrupt_26           0x00855a        Code  Gb  sys_vector.o [1]
-_interrupt_3            0x00854d        Code  Gb  sys_vector.o [1]
-_interrupt_4            0x00854e        Code  Gb  sys_vector.o [1]
-_interrupt_5            0x00854f        Code  Gb  sys_vector.o [1]
-_interrupt_6            0x008550        Code  Gb  sys_vector.o [1]
-_interrupt_7            0x008551        Code  Gb  sys_vector.o [1]
-_interrupt_8            0x008552        Code  Gb  sys_vector.o [1]
-_interrupt_9            0x008553        Code  Gb  sys_vector.o [1]
-b_taskCycle100ms        0x00001c   0x1  Data  Lc  sys_task.o [1]
-b_taskCycle10ms         0x00001b   0x1  Data  Lc  sys_task.o [1]
-b_taskHandler1ms        0x00001a   0x1  Data  Lc  sys_task.o [1]
-exit                    0x008542   0x3  Code  Gb  exit.o [4]
-main                    0x0081f9  0x74  Code  Gb  sys_task.o [1]
-memcmp                  0x008344  0x36  Code  Gb  memcmp.o [4]
-memcpy                  0x008406  0x25  Code  Gb  memcpy.o [4]
-pOptionByte             0x000016   0x2  Data  Gb  sys_optionByte.o [1]
-sys_adcInit             0x008132   0xf  Code  Gb  sys_adc.o [1]
-sys_adcReadVcc          0x008080  0x23  Code  Gb  sys_adc.o [1]
-sys_adcValue            0x0080a3  0x8f  Code  Gb  sys_adc.o [1]
-sys_iwdgInit            0x008454  0x1e  Code  Gb  sys_iwdg.o [1]
-sys_iwdgReset           0x008528   0x5  Code  Gb  sys_iwdg.o [1]
-sys_optionByteInit      0x0082cb  0x40  Code  Gb  sys_optionByte.o [1]
-sys_taskCycle100ms      0x00837a  0x34  Code  Lc  sys_task.o [1]
-sys_taskCycle10ms       0x00854a   0x1  Code  Lc  sys_task.o [1]
-sys_taskCycle1ms        0x008549   0x1  Code  Lc  sys_task.o [1]
-sys_taskGpioInit        0x0084f1   0xd  Code  Gb  sys_task.o [1]
-sys_taskHandler1ms      0x008548   0x1  Code  Lc  sys_task.o [1]
-sys_taskInit            0x008472  0x19  Code  Gb  sys_task.o [1]
-sys_uartInit            0x00826d  0x5e  Code  Gb  sys_uart.o [1]
-sys_uartTransmitData    0x00830b  0x39  Code  Gb  sys_uart.o [1]
-u16_vcc                 0x000018   0x2  Data  Gb  sys_adc.o [1]
-u8_taskCycleCount100ms  0x00001e   0x1  Data  Lc  sys_task.o [1]
-u8_taskCycleCount10ms   0x00001d   0x1  Data  Lc  sys_task.o [1]
+__low_level_init        0x0083eb   0x3  Code  Gb  low_level_init.o [4]
+_exit                   0x0083e3        Code  Gb  cexit.o [4]
+_interrupt_1            0x0083f8        Code  Gb  sys_vector.o [1]
+_interrupt_12           0x008401        Code  Gb  sys_vector.o [1]
+_interrupt_13           0x008402        Code  Gb  sys_vector.o [1]
+_interrupt_14           0x008403        Code  Gb  sys_vector.o [1]
+_interrupt_15           0x0083de        Code  Gb  sys_tim2.o [1]
+_interrupt_16           0x008404        Code  Gb  sys_vector.o [1]
+_interrupt_2            0x0083f9        Code  Gb  sys_vector.o [1]
+_interrupt_20           0x00824c        Code  Gb  sys_uart.o [1]
+_interrupt_21           0x008405        Code  Gb  sys_vector.o [1]
+_interrupt_24           0x008406        Code  Gb  sys_vector.o [1]
+_interrupt_25           0x00837c        Code  Gb  sys_task.o [1]
+_interrupt_26           0x008407        Code  Gb  sys_vector.o [1]
+_interrupt_3            0x0083fa        Code  Gb  sys_vector.o [1]
+_interrupt_4            0x0083fb        Code  Gb  sys_vector.o [1]
+_interrupt_5            0x0083fc        Code  Gb  sys_vector.o [1]
+_interrupt_6            0x0083fd        Code  Gb  sys_vector.o [1]
+_interrupt_7            0x0083fe        Code  Gb  sys_vector.o [1]
+_interrupt_8            0x0083ff        Code  Gb  sys_vector.o [1]
+_interrupt_9            0x008400        Code  Gb  sys_vector.o [1]
+b_taskCycle100ms        0x00002d   0x1  Data  Lc  sys_task.o [1]
+b_taskCycle10ms         0x00002c   0x1  Data  Lc  sys_task.o [1]
+b_taskHandler1ms        0x00002b   0x1  Data  Lc  sys_task.o [1]
+exit                    0x0083ee   0x3  Code  Gb  exit.o [4]
+main                    0x008080  0x77  Code  Gb  sys_task.o [1]
+memcmp                  0x0081b7  0x36  Code  Gb  memcmp.o [4]
+memcpy                  0x0082a3  0x25  Code  Gb  memcpy.o [4]
+pOptionByte             0x0083f4   0x2  Data  Gb  sys_eeprom.o [1]
+sys_adcInit             0x0083ac   0xd  Code  Gb  sys_adc.o [1]
+sys_eepromInit          0x008181  0x36  Code  Gb  sys_eeprom.o [1]
+sys_eepromUnlock        0x00839e   0xe  Code  Gb  sys_eeprom.o [1]
+sys_iwdgInit            0x0082d0  0x1e  Code  Gb  sys_iwdg.o [1]
+sys_iwdgReset           0x0083d9   0x5  Code  Gb  sys_iwdg.o [1]
+sys_taskCycle100ms      0x00821f  0x2d  Code  Lc  sys_task.o [1]
+sys_taskCycle10ms       0x0083f7   0x1  Code  Lc  sys_task.o [1]
+sys_taskCycle1ms        0x00838e  0x10  Code  Lc  sys_task.o [1]
+sys_taskGpioInit        0x0083b9   0xd  Code  Gb  sys_task.o [1]
+sys_taskHandler1ms      0x0083f6   0x1  Code  Lc  sys_task.o [1]
+sys_taskInit            0x00830c  0x19  Code  Gb  sys_task.o [1]
+sys_tim2Init            0x008325  0x19  Code  Gb  sys_tim2.o [1]
+sys_uartInit            0x0080f7  0x4d  Code  Gb  sys_uart.o [1]
+sys_uartReceiveData     0x008144  0x3d  Code  Gb  sys_uart.o [1]
+sys_uartTransmitByte    0x0083d0   0x9  Code  Gb  sys_uart.o [1]
+sys_uartTransmitData    0x008279  0x2a  Code  Gb  sys_uart.o [1]
+u8_taskCycleCount100ms  0x00002f   0x1  Data  Lc  sys_task.o [1]
+u8_taskCycleCount10ms   0x00002e   0x1  Data  Lc  sys_task.o [1]
 
 
-[1] = C:\Users\LiuHui\Desktop\STM8\Project\Debug\Obj
+[1] = G:\GitHub\STM8S_Demo\Project\Debug\Obj
 [2] = command line
 [3] = dbgstm8smd.a
 [4] = dlstm8smn.a
 
-  1 217 bytes of readonly  code memory
-    178 bytes of readonly  data memory
-    291 bytes of readwrite data memory (+ 37 absolute)
+  885 bytes of readonly  code memory
+  148 bytes of readonly  data memory
+  307 bytes of readwrite data memory (+ 44 absolute)
 
 Errors: none
 Warnings: none

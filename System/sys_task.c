@@ -1,4 +1,4 @@
-#include "sys_stm8s.h"
+#include "iostm8s103f3.h"
 #include "include.h"
 
 static BOOL b_taskHandler1ms = FALSE;
@@ -31,6 +31,7 @@ void sys_taskInit(void)
 	TIM4_CR1 = 0x01;				//enable TIM4
 }
 
+#pragma vector = TIM4_UPD_OVF_IRQ
 __interrupt void TIM4_UPD_OVF_IRQHandler(void)
 {
 	b_taskHandler1ms = TRUE;
@@ -45,13 +46,14 @@ void sys_taskHandler1ms(void)
 int main(void)
 {
 	CLK_CKDIVR = 0x00;				//cpu clock is HSI 16MHz
-	sys_optionByteInit();
 	sys_taskGpioInit();
+	sys_eepromInit();
 	sys_taskInit();
 	sys_adcInit();
 	sys_iwdgInit();
 	sys_uartInit();
-	enableInterrupts();
+	sys_tim2Init();
+	enable_interrupt();
 	while(1)
 	{
 		sys_iwdgReset();
@@ -85,6 +87,13 @@ int main(void)
 
 static void sys_taskCycle1ms(void)
 {
+	UINT8 len;
+	static UINT8 Buff[20];
+	len = sys_uartReceiveData(Buff);
+	if(len)
+	{
+		sys_uartTransmitData(Buff, len);
+	}
 }
 
 static void sys_taskCycle10ms(void)
@@ -99,5 +108,4 @@ static void sys_taskCycle100ms(void)
 		PA_ODR_ODR3 = !PA_ODR_ODR3;
 		count = 0;
 	}
-	sys_uartTransmitData("12345", 5);
 }

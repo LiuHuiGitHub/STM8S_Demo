@@ -1,4 +1,5 @@
-#include "sys_stm8s.h"
+#include "iostm8s103f3.h"
+#include "sys_vector.h"
 #include "sys_tim2.h"
 
 
@@ -12,6 +13,7 @@ void sys_tim2Init(void)
 	TIM2_CR1 = 0x01;				//enable TIM2
 }
 
+#pragma vector = TIM2_UPD_OVF_BRK_IRQ
 __interrupt void TIM2_UPD_OVF_BRK_IRQHandler(void)
 {
 	TIM2_SR1 &= ~0x01;

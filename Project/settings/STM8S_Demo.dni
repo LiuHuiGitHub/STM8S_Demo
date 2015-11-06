@@ -1,5 +1,5 @@
 [DebugChecksum]
-Checksum=46928205
+Checksum=-1235863146
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -84,9 +84,7 @@ Category=_ 0
 LoggingEnabled=_ 0
 LogFile=_ ""
 [Breakpoints]
-Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\System\sys_uart.c}.96.3" 1 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\System\sys_uart.c}.64.2" 1 0 0 0 "" 0 ""
-Count=2
+Count=0
 [Aliases]
 A0=_ "C:\Users\LiuHui\Desktop\STM8\System\sys_adc.c" ""
 Count=1

@@ -1,4 +1,4 @@
-#include "sys_stm8s.h"
+#include "iostm8s103f3.h"
 #include "sys_pwm.h"
 
 static void TIM1_Init(void)

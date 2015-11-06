@@ -28,9 +28,6 @@
       <name>$PROJ_DIR$\..\System\sys_iwdg.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\System\sys_optionByte.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\System\sys_pwm.c</name>
     </file>
     <file>
