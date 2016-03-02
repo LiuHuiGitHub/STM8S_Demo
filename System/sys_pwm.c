@@ -43,7 +43,7 @@ static void PWM_Init(void)
 		0：CC1E：输入捕获/比较1输出使能，0：OC1高电平有效
 	TIM1_CCER2~3：与TIM1_CCER1类同
 	*/
-	TIM1_CCER1 = 0x05;
+	TIM1_CCER1 = 0x05;				//PWM1、PWM2输出使能
 	TIM1_CCER2 = 0x00;
 	/*
 	TIM1_CCMR1：
@@ -67,7 +67,7 @@ static void PWM_Init(void)
 	TIM1_CCMR2~3与TIM1_CCMR1类同
 	*/
 	TIM1_CCMR1 = 0x60;		//PWM模式2，通道1
-//	TIM1_CCMR2 = 0x60;		//PWM模式2，通道2
+	TIM1_CCMR2 = 0x60;		//PWM模式2，通道2
 	
 	TIM1_CCR1H = 0x00;		//通道1占空比
 	TIM1_CCR1L = 0xFF/2;

@@ -20,7 +20,6 @@ void sys_taskGpioInit(void)
 	PA_CR2 &= ~BIT3;
 }
 
-
 void sys_taskInit(void)
 {
 	CLK_PCKENR1 |= 0x01;
@@ -50,6 +49,7 @@ int main(void)
 	sys_eepromInit();
 	sys_taskInit();
 	sys_adcInit();
+	sys_pwmInit();
 	sys_iwdgInit();
 	sys_uartInit();
 	sys_tim2Init();
@@ -94,6 +94,7 @@ static void sys_taskCycle1ms(void)
 	{
 		sys_uartTransmitData(Buff, len);
 	}
+	sys_pwmSet(sys_adcValue(3)>>2);
 }
 
 static void sys_taskCycle10ms(void)
