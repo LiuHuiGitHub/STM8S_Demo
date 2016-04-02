@@ -139,7 +139,7 @@
         </option>
         <option>
           <name>IccCharIs</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>IccMultibyteSupport</name>
@@ -147,7 +147,7 @@
         </option>
         <option>
           <name>IccOptLevel</name>
-          <state>1</state>
+          <state>3</state>
         </option>
         <option>
           <name>IccOptStrategy</name>
@@ -156,12 +156,12 @@
         </option>
         <option>
           <name>IccOptLevelSlave</name>
-          <state>1</state>
+          <state>3</state>
         </option>
         <option>
           <name>IccOptAllowList</name>
           <version>0</version>
-          <state>000000</state>
+          <state>111111</state>
         </option>
         <option>
           <name>IccGenerateDebugInfo</name>
@@ -259,6 +259,9 @@
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\USER</state>
           <state>$PROJ_DIR$\..\System</state>
+          <state>$PROJ_DIR$\..\Hwa</state>
+          <state>$PROJ_DIR$\..\Driver</state>
+          <state>$PROJ_DIR$\..\App</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1588,6 +1591,33 @@
     </settings>
   </configuration>
   <group>
+    <name>App</name>
+    <file>
+      <name>$PROJ_DIR$\..\App\app_config.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\App\app_test.c</name>
+    </file>
+  </group>
+  <group>
+    <name>Driver</name>
+    <file>
+      <name>$PROJ_DIR$\..\Driver\drive_led.c</name>
+    </file>
+  </group>
+  <group>
+    <name>Hwa</name>
+    <file>
+      <name>$PROJ_DIR$\..\Hwa\hwa_eeprom.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Hwa\hwa_eeprom_cfg.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Hwa\hwa_ntc.c</name>
+    </file>
+  </group>
+  <group>
     <name>System</name>
     <file>
       <name>$PROJ_DIR$\..\System\sys_adc.c</name>
@@ -1599,16 +1629,7 @@
       <name>$PROJ_DIR$\..\System\sys_iwdg.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\System\sys_pwm.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\System\sys_task.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\System\sys_tim2.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\System\sys_uart.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\System\sys_vector.c</name>

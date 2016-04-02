@@ -1,9 +1,30 @@
-#ifndef __TYPEDEF_H__
-#define __TYPEDEF_H__
+#ifndef _TYPEDEF_H_
+#define _TYPEDEF_H_
 
-#define __STM8
+#define _STM8_
+#define _STM8_IAR_
+
+
+#ifdef _STM8_IAR_
+#define CONST				__root const
+#else
+#define CONST				const
+#endif
+
+
+#ifndef _TRUE_
 #define TRUE                1
+#endif
+#ifndef _FALSE_
 #define FALSE               0
+#endif
+
+#ifndef _ENABLE_
+#define ENABLE				1
+#endif
+#ifndef _DISABLE_
+#define DISABLE				0
+#endif
 
 #define BIT0				0x01
 #define BIT1				0x02
@@ -14,42 +35,42 @@
 #define BIT6				0x40
 #define BIT7				0x80
 
-#ifndef __BOOL
-#define __BOOL
-#ifdef __C51
+#ifndef _BOOL_
+#define _BOOL_
+#ifdef _C51_
 typedef bit         		BOOL;
 #else
 typedef unsigned char       BOOL;
 #endif
 #endif
 
-#ifndef __UINT8
-#define __UINT8
+#ifndef _UINT8_
+#define _UINT8_
 typedef unsigned char       UINT8;
 #endif
 
-#ifndef __SINT8
-#define __SINT8
+#ifndef _SINT8_
+#define _SINT8_
 typedef signed char         SINT8;
 #endif
 
-#ifndef __UINT16
-#define __UINT16
+#ifndef _UINT16_
+#define _UINT16_
 typedef unsigned short		UINT16;
 #endif
 
-#ifndef __SINT16
-#define __SINT16
+#ifndef _SINT16_
+#define _SINT16_
 typedef signed short		SINT16;
 #endif
 
-#ifndef __UINT32
-#define __UINT32
+#ifndef _UINT32
+#define _UINT32
 typedef unsigned long		UINT32;
 #endif
 
-#ifndef __SINT32
-#define __SINT32
+#ifndef _SINT32_
+#define _SINT32_
 typedef signed long			SINT32;
 #endif
 
@@ -70,7 +91,7 @@ typedef unsigned long       uint32_t;
   *         that failed. If expr is true, it returns no value.
   * @retval None
   */
-#define assert_param(expr) if((expr)==0)assert_failed((uint8_t *)__FILE__, __LINE__)
+#define assert_param(expr) if((expr)==0)assert_failed((uint8_t *)_FILE_, _LINE_)
 /* Exported functions ------------------------------------------------------- */
 void assert_failed(uint8_t *file, uint32_t line);
 #else
