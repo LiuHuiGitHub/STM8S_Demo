@@ -30,6 +30,9 @@
     <file>
       <name>$PROJ_DIR$\..\Driver\drive_led.c</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\Driver\drive_scr.c</name>
+    </file>
   </group>
   <group>
     <name>Hwa</name>

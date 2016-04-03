@@ -11,6 +11,7 @@
 #include "sys_vector.h"
 
 #include "drive_led.h"
+#include "drive_scr.h"
 
 #include "hwa_eeprom.h"
 #include "hwa_ntc.h"

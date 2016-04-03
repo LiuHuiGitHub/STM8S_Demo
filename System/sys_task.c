@@ -17,14 +17,13 @@ void sys_taskGpioInit(void)
     PA_CR1 |= 0x0F;
     PA_CR2 &= (UINT8)(~0x0F);
 	
-	PA_DDR_DDR6 = 0;
-	PA_CR1_C16 = 0;
-	PA_CR2_C26 = 0;
+	PD_DDR_DDR2 = 0;
+	PD_CR1_C12 = 0;
+	PD_CR2_C22 = 0;
 	
-    PD_DDR |= 0xFC;
-    PD_CR1 |= 0xFC;
-    PD_CR2 &= 0x03;
-	
+	PD_DDR |= 0xF9;
+	PD_CR1 |= 0xF9;
+	PD_CR2 &= 0x06;
 	
     PC_DDR |= 0xFF;
     PC_CR1 |= 0xFF;
@@ -53,11 +52,13 @@ __interrupt void TIM4_UPD_OVF_IRQHandler(void)
 void sys_taskHandler2ms(void)
 {
 	drv_ledHandler2ms();
+	drv_scrHandler2ms();
 }
 
 int main(void)
 {
     CLK_CKDIVR = 0x00;				//cpu clock is HSI 16MHz
+	drv_scrInit();
 	drv_ledInit();
 //	sys_iwdgInit();
     sys_taskGpioInit();
@@ -100,6 +101,5 @@ static void sys_taskCycle100ms(void)
 static void sys_taskCycle500ms(void)
 {
 	hwa_ntcHandler500ms();
-	PA_ODR_ODR3 = !PA_ODR_ODR3;
 }
 

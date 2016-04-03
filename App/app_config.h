@@ -11,6 +11,9 @@ typedef struct
 
 extern SYSTEM_STRUCT s_System;
 
+extern UINT8 u8_setTime;
+extern UINT8 u8_setTemp;
+
 extern CONST UINT8 SoftWareVersion;
 extern CONST UINT8 HardWareVersion;
 

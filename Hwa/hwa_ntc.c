@@ -122,7 +122,7 @@ void hwa_ntcHandler500ms(void)
 	UINT32 u32_vccValue;
 	UINT8 temp;
 	u32_vccValue = sys_adcValue(7);
-	u16_adValue = sys_adcValue(6);
+	u16_adValue = sys_adcValue(3);
 	for(temp=0; temp< NUM_OF_TEMP; temp++)
 	{
 		if(u16_adValue < c_u16_ntcTable[temp])

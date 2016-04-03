@@ -24,7 +24,7 @@ UINT8 u8_ledRequestCounter = 0;
 UINT8 u8_ledRequestCount = 0;
 UINT8 u8_ledRequestData[2] = {0};
 
-UINT8 u8_ledDisBuff[2] = {19,19};
+UINT8 u8_ledDisBuff[2] = {8,8};
 UINT8 u8_ledDot = 0x00;
 static UINT8 u8_ledIndex = 0;//从左到右为0,1,2
 
@@ -41,7 +41,7 @@ void drv_ledInit(void)
 /* LED动态显示 */
 void drv_ledHandler2ms(void)
 {
-	UINT8 coding;
+	UINT8 coding = ledCoding[19];
 	LED_CS0 = SEG_OFF;
 	LED_CS1 = SEG_OFF;
 	u8_ledIndex++;
@@ -78,7 +78,7 @@ void drv_ledHandler2ms(void)
 		PA_ODR_ODR2 = coding>>6;
 		PA_ODR_ODR1 = coding>>5;
 		PD_ODR_ODR3 = coding>>4;
-		PD_ODR_ODR2 = coding>>3;
+		PD_ODR_ODR4 = coding>>3;
 		PC_ODR_ODR7 = coding>>2;
 		PC_ODR_ODR6 = coding>>1;
 		PC_ODR_ODR5 = coding>>0;
@@ -105,13 +105,16 @@ void drv_ledHandler2ms(void)
 			else
 			{
 				u8_ledRequestCounter = 0;
-				u8_ledRequestCount--;
+				if(u8_ledRequestCount != 0xFF)
+				{
+					u8_ledRequestCount--;
+				}
 			}
 		}
 		PA_ODR_ODR2 = coding>>6;
 		PA_ODR_ODR1 = coding>>5;
 		PD_ODR_ODR3 = coding>>4;
-		PD_ODR_ODR2 = coding>>3;
+		PD_ODR_ODR4 = coding>>3;
 		PC_ODR_ODR7 = coding>>2;
 		PC_ODR_ODR6 = coding>>1;
 		PC_ODR_ODR5 = coding>>0;
@@ -123,14 +126,13 @@ void drv_ledHandler2ms(void)
 		PA_ODR_ODR1 = 1;//g
 		PD_ODR_ODR4 = 1;//f
 		PD_ODR_ODR3 = 1;//e
-		PD_ODR_ODR2 = 1;//d
 		PC_ODR_ODR7 = 1;//c
 		PC_ODR_ODR6 = 1;//b
 		PC_ODR_ODR5 = 1;//a
 		
-		PD_DDR_DDR2 = 0;
-		PD_CR1_C12 = 1;
-		PD_CR2_C22 = 0;
+		PD_DDR_DDR4 = 0;
+		PD_CR1_C14 = 1;
+		PD_CR2_C24 = 0;
 		
 		PD_DDR_DDR3 = 0;
 		PD_CR1_C13 = 1;
@@ -142,7 +144,7 @@ void drv_ledHandler2ms(void)
 	}
 	else
 	{
-		if(PD_IDR_IDR2 == 0)
+		if(PD_IDR_IDR4 == 0)
 		{
 			b_keyStart = TRUE;
 		}
@@ -167,9 +169,9 @@ void drv_ledHandler2ms(void)
 			b_keyTempSet = FALSE;
 		}
 		
-		PD_DDR |= 0xFC;
-		PD_CR1 |= 0xFC;
-		PD_CR2 &= 0x03;
+		PD_DDR |= 0xF9;
+		PD_CR1 |= 0xF9;
+		PD_CR2 &= 0x06;
 		
 		PC_DDR |= 0xFF;
 		PC_CR1 |= 0xFF;
@@ -179,13 +181,31 @@ void drv_ledHandler2ms(void)
 
 void drv_ledRequest(UINT8 count, UINT8 n)
 {
-	if(count == 0)
+	u8_ledRequestCount = count;
+	if(count != 0xFF)
 	{
 		u8_ledRequestCounter = 0;
 	}
-	u8_ledRequestCount = count;
-	u8_ledRequestData[0] = n / 10;
-	u8_ledRequestData[1] = n % 10;
+	if(n == 0xE1)
+	{
+		u8_ledRequestData[0] = 14;
+		u8_ledRequestData[1] = 1;
+	}
+	else if(n == 0xE2)
+	{
+		u8_ledRequestData[0] = 14;
+		u8_ledRequestData[1] = 2;
+	}
+	else if(n == 0xE3)
+	{
+		u8_ledRequestData[0] = 20;
+		u8_ledRequestData[1] = 20;
+	}
+	else
+	{
+		u8_ledRequestData[0] = n / 10;
+		u8_ledRequestData[1] = n % 10;
+	}
 }
 
 UINT8 drv_ledGetRequest(void)

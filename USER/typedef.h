@@ -26,6 +26,13 @@
 #define DISABLE				0
 #endif
 
+#ifndef _ON_
+#define ON					1
+#endif
+#ifndef _OFF_
+#define OFF					0
+#endif
+
 #define BIT0				0x01
 #define BIT1				0x02
 #define BIT2				0x04

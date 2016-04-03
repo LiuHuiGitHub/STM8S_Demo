@@ -5,9 +5,6 @@ static BOOL b_keyStartOld = FALSE;
 static BOOL b_keyTimeSetOld = FALSE;
 static BOOL b_keyTempSetOld = FALSE;
 
-BOOL b_outputTemp = FALSE;
-BOOL b_outputPump = FALSE;
-
 enum
 {
 	NTC_NORMAL,
@@ -20,203 +17,423 @@ enum
 {
 	MODE_POWER_ON,
 	MODE_STANDBY,
-	MODE_WORK_HIGH,
-	MODE_WORK_LOW,
+	MODE_WORK,
 	MODE_TIME_SET,
 	MODE_TEMP_SET,
 	MODE_AGING_TEST,
-}e_workMode = MODE_STANDBY, e_workModeOld = MODE_STANDBY;
+	MODE_FAULT,
+}e_mode = MODE_POWER_ON, e_modeOld = MODE_STANDBY;
+
+enum
+{
+	WORK_OFF,
+	WORK_FULL,
+	WORK_VVVF,
+	WORK_VVVF_OFF,
+}e_workState = WORK_OFF;
+
+enum
+{
+	KEY_EVENT_NONE,
+	KEY_EVENT_START,
+	KEY_EVENT_TIME_SET,
+	KEY_EVENT_TEMP_SET,
+}e_keyEvent = KEY_EVENT_NONE;
 
 void app_testInit(void)
 {
 }
 
+void eventHandler(void)
+{
+	if(b_keyStartOld != b_keyStart)
+	{
+		b_keyStartOld = b_keyStart;
+		if(b_keyStart)
+		{
+			e_keyEvent = KEY_EVENT_START;
+		}
+	}
+	else if(b_keyTimeSetOld != b_keyTimeSet)
+	{
+		b_keyTimeSetOld = b_keyTimeSet;
+		if(b_keyTimeSet)
+		{
+			e_keyEvent = KEY_EVENT_TIME_SET;
+		}
+	}
+	else if(b_keyTempSetOld != b_keyTempSet)
+	{
+		b_keyTempSetOld = b_keyTempSet;
+		if(b_keyTempSet)
+		{
+			e_keyEvent = KEY_EVENT_TEMP_SET;
+		}
+	}
+}
+
+#define TIME_45_MIN			50//(45*60*10)
+#define TIME_15_MIN			10//(15*60*10)
+
 void app_testHandler100ms(void)
 {
-	static UINT8 u8_powerOnDelay = 20;
-	static UINT8 u8_keyEnterSetCounter = 30;
+	static UINT8 u8_powerOnDelay = 5;
 	static UINT8 u8_keyLongEnterCounter = 0;
 	static UINT8 u8_keyEnterTimeCounter = 0;
-	UINT8 temp;
-	if(u8_powerOnDelay)						//等待温度读取完成
+	static UINT8 b_settingSaveFlag = FALSE;
+	static UINT16 u16_agingTestTimeCounter = TIME_45_MIN;
+	static BOOL b_agingTestFlag = 0;
+	UINT8 temp = hwa_ntcGetTemp();
+	eventHandler();
+
+	switch(e_mode)
 	{
-		u8_powerOnDelay--;
-		if(b_keyTimeSet && b_keyTempSet)
-		{
-			drv_ledRequest(3, SoftWareVersion);
-			e_workMode = MODE_AGING_TEST;
-		}
-		return;
-	}
-	temp = hwa_ntcGetTemp();
-	if(e_workMode != MODE_TIME_SET
-		&& e_workMode != MODE_TEMP_SET
-		&& e_workMode != MODE_AGING_TEST
-	)
-	{
-		if(temp == 0)
-		{
-			e_ntcState = NTC_SHORT_CIRCUIT;
-		}
-		else if(temp == 99)
-		{
-			e_ntcState = NTC_OPEN_CIRCUIT;
-		}
-		else if(temp >= 50)
-		{
-			e_ntcState = NTC_OVER_TEMP;
-		}
-		else
-		{
-			e_ntcState = NTC_NORMAL;
-		}
-	}
-	
-	switch(e_ntcState)
-	{
-		case NTC_NORMAL:
-			switch(e_workMode)
-			{					
-				case MODE_STANDBY:
-					u8_ledDisBuff[0] = 0;	//O
-					u8_ledDisBuff[1] = 15;	//F
-					if(b_keyStartOld != b_keyStart && b_keyStart)
+		case MODE_POWER_ON:
+			if(u8_powerOnDelay)
+			{
+				u8_powerOnDelay--;
+				if(u8_powerOnDelay == 0)
+				{
+					if(b_settingSaveFlag)
 					{
-						drv_ledRequest(3, s_System.Temp);
-						e_workMode = MODE_WORK_HIGH;
-					}
-					if(b_keyTimeSetOld != b_keyTimeSet && b_keyTimeSet)
-					{
-						e_workMode = MODE_TIME_SET;
-						e_workModeOld = MODE_STANDBY;
-					}
-					if(b_keyTempSetOld != b_keyTempSet && b_keyTempSet)
-					{
-						e_workMode = MODE_TEMP_SET;
-						e_workModeOld = MODE_STANDBY;
-					}
-					break;
-					
-				case MODE_WORK_HIGH:
-					u8_ledDisBuff[0] = temp/10;
-					u8_ledDisBuff[1] = temp%10;
-					if(temp > s_System.Temp + 2)
-					{
-						e_workMode = MODE_WORK_LOW;
-					}
-					if(b_keyStartOld != b_keyStart && b_keyStart)
-					{
-						e_workMode = MODE_STANDBY;
-					}
-					break;
-						
-				case MODE_WORK_LOW:
-					u8_ledDisBuff[0] = temp/10;
-					u8_ledDisBuff[1] = temp%10;
-					if(temp < s_System.Temp - 2)
-					{
-						e_workMode = MODE_WORK_HIGH;
-					}
-					if(b_keyStartOld != b_keyStart && b_keyStart)
-					{
-						e_workMode = MODE_STANDBY;
-					}
-					break;
-					
-				case MODE_TIME_SET:
-					if(b_keyTimeSetOld != b_keyTimeSet && b_keyTimeSet)
-					{
-						u8_keyEnterSetCounter = 30;
-						s_System.Time+=5;
-						if(s_System.Time > 90)
-						{
-							s_System.Time = 10;
-						}
-						drv_ledRequest(3, s_System.Time);
-					}
-					else if(b_keyTimeSet)
-					{
-						u8_keyEnterSetCounter = 30;
-						if(u8_keyLongEnterCounter < 20)
-						{
-							u8_keyLongEnterCounter++;
-						}
-						else
-						{
-							drv_ledRequest(0, s_System.Time);
-							if(u8_keyEnterTimeCounter < 5)
-							{
-								u8_keyEnterTimeCounter++;
-							}
-							else
-							{
-								u8_keyEnterTimeCounter = 0;
-								s_System.Time+=5;
-								if(s_System.Time > 90)
-								{
-									s_System.Time = 10;
-								}
-							}
-						}
+						b_settingSaveFlag = FALSE;
+						e_mode = MODE_AGING_TEST;
 					}
 					else
 					{
-						u8_keyLongEnterCounter = 0;
-						u8_keyEnterTimeCounter = 0;
+						e_mode = MODE_STANDBY;
 					}
-					
-					if(u8_keyEnterSetCounter)
+				}
+				else if(b_keyTimeSet && b_keyTempSet && !b_settingSaveFlag)
+				{
+					u8_powerOnDelay = 30;
+					u8_ledDisBuff[0] = 0;	//O
+					u8_ledDisBuff[1] = 1;	//1
+					b_settingSaveFlag = TRUE;
+				}
+			}
+			break;
+			
+		case MODE_STANDBY:
+			drv_scrRequest(SCR_OFF);
+			u8_ledDisBuff[0] = 0;	//O
+			u8_ledDisBuff[1] = 15;	//F
+			if(e_keyEvent == KEY_EVENT_START)
+			{
+				drv_ledRequest(3, u8_setTemp);
+				e_mode = MODE_WORK;
+			}
+			
+			if(temp == 0)
+			{
+				e_mode = MODE_FAULT;
+				e_ntcState = NTC_SHORT_CIRCUIT;
+			}
+			else if(temp == 99)
+			{
+				e_mode = MODE_FAULT;
+				e_ntcState = NTC_OPEN_CIRCUIT;
+			}
+			else if(temp >= 50)
+			{
+				e_mode = MODE_FAULT;
+				e_ntcState = NTC_OVER_TEMP;
+			}
+			break;
+			
+		case MODE_WORK:
+			u8_ledDisBuff[0] = temp/10;
+			u8_ledDisBuff[1] = temp%10;
+			switch(e_workState)
+			{
+				case WORK_OFF:
+					drv_scrRequest(SCR_OFF);
+					if(temp < u8_setTemp)
 					{
-						u8_keyEnterSetCounter--;
-						if(u8_keyEnterSetCounter == 0)
-						{
-							if(s_System.Time >= 30)
-							{
-								app_configWrite();
-								drv_ledRequest(0, s_System.Time);
-							}
-							e_workMode = e_workModeOld;
-						}
+						e_workState = WORK_FULL;
 					}
 					break;
 					
-				case MODE_TEMP_SET:
-					u8_ledDisBuff[0] = s_System.Temp/10;
-					u8_ledDisBuff[1] = s_System.Temp%10;
-					break;
-				
-				case MODE_AGING_TEST:
-					u8_ledDisBuff[0] = temp/10;	
-					u8_ledDisBuff[1] = temp%10;
-					if(b_keyStartOld != b_keyStart && b_keyStart)
+				case WORK_FULL:
+					drv_scrRequest(SCR_FULL);
+					if(temp >= u8_setTemp)
 					{
-						e_workMode = MODE_STANDBY;
+						e_workState = WORK_VVVF;
+					}
+					break;
+					
+				case WORK_VVVF:
+					drv_scrRequest(SCR_VVVF);
+					if(temp < u8_setTemp-2)
+					{
+						e_workState = WORK_FULL;
+					}
+					else if(temp >= u8_setTemp)
+					{
+						e_workState = WORK_VVVF_OFF;
+					}
+					break;
+					
+				case WORK_VVVF_OFF:
+					drv_scrRequest(SCR_VVVF_OFF);
+					if(temp < u8_setTemp)
+					{
+						e_workState = WORK_VVVF;
 					}
 					break;
 					
 				default:
-					e_workMode = MODE_STANDBY;
+					e_workState = WORK_OFF;
+					break;
+			}
+			
+			if(e_keyEvent == KEY_EVENT_START)
+			{
+				e_mode = MODE_STANDBY;
+			}
+			if(e_keyEvent == KEY_EVENT_TIME_SET)
+			{
+				drv_ledRequest(3, u8_setTime);
+				e_modeOld = e_mode;
+				e_mode = MODE_TIME_SET;
+			}
+			else if(e_keyEvent == KEY_EVENT_TEMP_SET)
+			{
+				drv_ledRequest(3, u8_setTemp);
+				e_modeOld = e_mode;
+				e_mode = MODE_TEMP_SET;
+			}
+			
+			if(temp == 0)
+			{
+				e_mode = MODE_FAULT;
+				e_ntcState = NTC_SHORT_CIRCUIT;
+			}
+			else if(temp == 99)
+			{
+				e_mode = MODE_FAULT;
+				e_ntcState = NTC_OPEN_CIRCUIT;
+			}
+			else if(temp >= 50)
+			{
+				e_mode = MODE_FAULT;
+				e_ntcState = NTC_OVER_TEMP;
+			}
+			break;
+			
+		case MODE_TIME_SET:
+			if(e_keyEvent == KEY_EVENT_TIME_SET)
+			{
+				b_settingSaveFlag = TRUE;
+			}
+			else if(e_keyEvent == KEY_EVENT_TEMP_SET)		//时间设置时按温度保存当前时间
+			{
+				u8_keyLongEnterCounter = 0;
+				u8_keyEnterTimeCounter = 0;
+				e_mode = MODE_TEMP_SET;
+				if(u8_setTime >= 30)
+				{
+					s_System.Time = u8_setTime;
+					app_configWrite();
+				}
+				drv_ledRequest(3, u8_setTemp);
+			}
+			else if(b_keyTimeSet)
+			{
+				if(u8_keyLongEnterCounter < 20)
+				{
+					u8_keyLongEnterCounter++;
+				}
+				else
+				{
+					if(u8_keyEnterTimeCounter < 5)
+					{
+						u8_keyEnterTimeCounter++;
+					}
+					else
+					{
+						u8_keyEnterTimeCounter = 0;
+						b_settingSaveFlag = TRUE;
+					}
+				}
+			}
+			else
+			{
+				u8_keyLongEnterCounter = 0;
+				u8_keyEnterTimeCounter = 0;
+			}
+			
+			if(b_settingSaveFlag == TRUE)
+			{
+				b_settingSaveFlag = FALSE;
+				u8_setTime+=5;
+				if(u8_setTime > 90)
+				{
+					u8_setTime = 10;
+				}
+				drv_ledRequest(3, u8_setTime);
+			}
+			else if(drv_ledGetRequest() == 0)
+			{
+				if(u8_setTime >= 30)
+				{
+					s_System.Time = u8_setTime;
+					app_configWrite();
+				}
+				e_mode = e_modeOld;
+			}
+			break;
+			
+		case MODE_TEMP_SET:
+			if(e_keyEvent == KEY_EVENT_TEMP_SET)
+			{
+				b_settingSaveFlag = TRUE;
+			}
+			else if(e_keyEvent == KEY_EVENT_TIME_SET)		//温度设置时按时间保存当前温度
+			{
+				u8_keyLongEnterCounter = 0;
+				u8_keyEnterTimeCounter = 0;
+				e_mode = MODE_TIME_SET;
+				s_System.Temp = u8_setTemp;
+				app_configWrite();
+				drv_ledRequest(3, u8_setTime);
+			}
+			else if(b_keyTempSet)
+			{
+				if(u8_keyLongEnterCounter < 20)
+				{
+					u8_keyLongEnterCounter++;
+				}
+				else
+				{
+					if(u8_keyEnterTimeCounter < 5)
+					{
+						u8_keyEnterTimeCounter++;
+					}
+					else
+					{
+						u8_keyEnterTimeCounter = 0;
+						b_settingSaveFlag = TRUE;
+					}
+				}
+			}
+			else
+			{
+				u8_keyLongEnterCounter = 0;
+				u8_keyEnterTimeCounter = 0;
+			}
+			
+			if(b_settingSaveFlag == TRUE)
+			{
+				b_settingSaveFlag = FALSE;
+				u8_setTemp+=1;
+				if(u8_setTemp > 48)
+				{
+					u8_setTemp = 30;
+				}
+				drv_ledRequest(3, u8_setTemp);
+			}
+			else if(drv_ledGetRequest() == 0)
+			{
+				s_System.Temp = u8_setTemp;
+				app_configWrite();
+				e_mode = e_modeOld;
+			}
+			break;
+		
+		case MODE_AGING_TEST:
+			if(b_agingTestFlag == 0)
+			{
+				drv_scrRequest(SCR_FULL);
+				if(u16_agingTestTimeCounter)
+				{
+					u16_agingTestTimeCounter--;
+					if(u16_agingTestTimeCounter == 0)
+					{
+						b_agingTestFlag = 1;
+						u16_agingTestTimeCounter = TIME_15_MIN;
+					}
+				}
+			}
+			else
+			{
+				drv_scrRequest(SCR_OFF);
+				if(u16_agingTestTimeCounter)
+				{
+					u16_agingTestTimeCounter--;
+					if(u16_agingTestTimeCounter == 0)
+					{
+						b_agingTestFlag = 0;
+						u16_agingTestTimeCounter = TIME_45_MIN;
+					}
+				}
+			}
+			if(temp == 0)
+			{
+				drv_ledRequest(0xFF, 0xE1);
+			}
+			else if(temp == 99)
+			{
+				drv_ledRequest(0xFF, 0xE2);
+			}
+			else if(temp >= 50)
+			{
+				drv_ledRequest(0xFF, 0xE3);
+			}
+			else
+			{
+				drv_ledRequest(0xFF, temp);
+			}
+			if(e_keyEvent == KEY_EVENT_START)
+			{
+				drv_ledRequest(0, temp);
+				e_mode = MODE_STANDBY;
+			}
+			break;
+			
+		case MODE_FAULT:
+			drv_scrRequest(SCR_OFF);
+			switch(e_ntcState)
+			{
+				case NTC_NORMAL:
+					e_mode = MODE_STANDBY;
+					drv_ledRequest(0, 0xE3);
+					break;
+					
+				case NTC_SHORT_CIRCUIT:
+					drv_ledRequest(0xFF, 0xE1);
+					if(temp > 0)
+					{
+						e_ntcState = NTC_NORMAL;
+					}
+					break;
+					
+				case NTC_OPEN_CIRCUIT:
+					if(temp < 99)
+					{
+						e_ntcState = NTC_NORMAL;
+					}
+					drv_ledRequest(0xFF, 0xE2);
+					break;
+					
+				case NTC_OVER_TEMP:
+					drv_ledRequest(0xFF, 0xE3);
+					if(temp < 49)
+					{
+						e_ntcState = NTC_NORMAL;
+					}
+					break;
+				
+				default:
+					e_ntcState = NTC_NORMAL;
 					break;
 			}
 			break;
 			
-		case NTC_SHORT_CIRCUIT:
-			u8_ledDisBuff[0] = 14;	//E
-			u8_ledDisBuff[1] = 1;	//1
-			break;
-			
-		case NTC_OPEN_CIRCUIT:
-			u8_ledDisBuff[0] = 14;	//E
-			u8_ledDisBuff[1] = 2;	//2
-			break;
-			
-		case NTC_OVER_TEMP:
-			u8_ledDisBuff[0] = 20;	//H
-			u8_ledDisBuff[1] = 20;	//H
+		default:
+			e_mode = MODE_STANDBY;
 			break;
 	}
-	b_keyStartOld = b_keyStart;
-	b_keyTimeSetOld = b_keyTimeSet;
-	b_keyTempSetOld = b_keyTempSet;
+	e_keyEvent = KEY_EVENT_NONE;
 }
 

@@ -7,6 +7,9 @@ CONST UINT8 HardWareVersion = 0x01;
 
 SYSTEM_STRUCT s_System;
 
+UINT8 u8_setTime = 0;
+UINT8 u8_setTemp = 0;
+
 void app_configInit(void)
 {
 	hwa_eepromInit();
@@ -16,6 +19,8 @@ void app_configInit(void)
 		s_System.Temp = 40;
         app_configWrite();
 	}
+	u8_setTime = s_System.Time;
+	u8_setTemp = s_System.Temp;
 }
 
 BOOL app_configRead(void)
