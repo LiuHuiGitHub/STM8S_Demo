@@ -1,5 +1,5 @@
 [DebugChecksum]
-Checksum=-1056063980
+Checksum=885659717
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -71,6 +71,9 @@ Enabled=0
 ShowSource=1
 [Simulator]
 Freq=16000000
+[struct_types]
+Fmt0=SYSTEM_STRUCT-Temp	3	0
+Fmt1=SYSTEM_STRUCT-Time	3	0
 [array_types]
 Fmt0=unsigned char[20]	4	0
 [watch_formats]
@@ -91,7 +94,8 @@ Category=_ 0
 LoggingEnabled=_ 0
 LogFile=_ ""
 [Breakpoints]
-Count=0
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\App\app_test.c}.128.4" 1 0 0 0 "" 0 ""
+Count=1
 [Aliases]
 A0=_ "C:\Users\LiuHui\Desktop\STM8\System\sys_adc.c" ""
 Count=1

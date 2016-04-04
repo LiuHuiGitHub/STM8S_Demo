@@ -33,7 +33,7 @@ void sys_eepromInit(void)
     }
 }
 
-void sys_eepromEraseSector(UINT16 len)
+void sys_eepromEraseSector(UINT16 addr)
 {
   	//..
 }

@@ -5,6 +5,8 @@ static BOOL b_keyStartOld = FALSE;
 static BOOL b_keyTimeSetOld = FALSE;
 static BOOL b_keyTempSetOld = FALSE;
 
+static UINT16 u16_workTimeCounter = 0;
+
 enum
 {
 	NTC_NORMAL,
@@ -71,9 +73,14 @@ void eventHandler(void)
 		}
 	}
 }
+//
+#define TIME_45_MIN			(45*60*10)
+#define TIME_15_MIN			(15*60*10)
+#define WORK_TIME			((UINT16)u8_setTime*60*10)
 
-#define TIME_45_MIN			50//(45*60*10)
-#define TIME_15_MIN			10//(15*60*10)
+//#define TIME_45_MIN			(45*10)
+//#define TIME_15_MIN			(15*10)
+//#define WORK_TIME			((UINT16)u8_setTime*10)
 
 void app_testHandler100ms(void)
 {
@@ -122,6 +129,7 @@ void app_testHandler100ms(void)
 			{
 				drv_ledRequest(3, u8_setTemp);
 				e_mode = MODE_WORK;
+				u16_workTimeCounter = 0;
 			}
 			
 			if(temp == 0)
@@ -164,7 +172,7 @@ void app_testHandler100ms(void)
 					
 				case WORK_VVVF:
 					drv_scrRequest(SCR_VVVF);
-					if(temp < u8_setTemp-2)
+					if(temp <= u8_setTemp-2)
 					{
 						e_workState = WORK_FULL;
 					}
@@ -218,6 +226,11 @@ void app_testHandler100ms(void)
 			{
 				e_mode = MODE_FAULT;
 				e_ntcState = NTC_OVER_TEMP;
+			}
+			
+			if(++u16_workTimeCounter >= WORK_TIME)
+			{
+				e_mode = MODE_STANDBY;
 			}
 			break;
 			
@@ -282,6 +295,11 @@ void app_testHandler100ms(void)
 				}
 				e_mode = e_modeOld;
 			}
+			
+			if(++u16_workTimeCounter >= WORK_TIME)
+			{
+				e_mode = MODE_STANDBY;
+			}
 			break;
 			
 		case MODE_TEMP_SET:
@@ -339,12 +357,16 @@ void app_testHandler100ms(void)
 				app_configWrite();
 				e_mode = e_modeOld;
 			}
+			
+			if(++u16_workTimeCounter >= WORK_TIME)
+			{
+				e_mode = MODE_STANDBY;
+			}
 			break;
 		
 		case MODE_AGING_TEST:
 			if(b_agingTestFlag == 0)
 			{
-				drv_scrRequest(SCR_FULL);
 				if(u16_agingTestTimeCounter)
 				{
 					u16_agingTestTimeCounter--;
@@ -357,7 +379,6 @@ void app_testHandler100ms(void)
 			}
 			else
 			{
-				drv_scrRequest(SCR_OFF);
 				if(u16_agingTestTimeCounter)
 				{
 					u16_agingTestTimeCounter--;
@@ -371,17 +392,28 @@ void app_testHandler100ms(void)
 			if(temp == 0)
 			{
 				drv_ledRequest(0xFF, 0xE1);
+				drv_scrRequest(SCR_TEST_OFF);
 			}
 			else if(temp == 99)
 			{
 				drv_ledRequest(0xFF, 0xE2);
+				drv_scrRequest(SCR_TEST_OFF);
 			}
 			else if(temp >= 50)
 			{
 				drv_ledRequest(0xFF, 0xE3);
+				drv_scrRequest(SCR_TEST_OFF);
 			}
 			else
 			{
+				if(b_agingTestFlag == 0)
+				{
+					drv_scrRequest(SCR_TEST_FULL);
+				}
+				else
+				{
+					drv_scrRequest(SCR_TEST_OFF);
+				}
 				drv_ledRequest(0xFF, temp);
 			}
 			if(e_keyEvent == KEY_EVENT_START)

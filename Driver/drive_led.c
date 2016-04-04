@@ -2,7 +2,7 @@
 #include "drive_led.h"
 #include "drive_led_Cfg.h"
 
-#define LED_CS0 PC_ODR_ODR4
+#define LED_CS0 PD_ODR_ODR4
 #define LED_CS1 PC_ODR_ODR3
 
 
@@ -75,13 +75,13 @@ void drv_ledHandler2ms(void)
 				coding = ledCoding[19];
 			}
 		}
-		PA_ODR_ODR2 = coding>>6;
-		PA_ODR_ODR1 = coding>>5;
-		PD_ODR_ODR3 = coding>>4;
-		PD_ODR_ODR4 = coding>>3;
-		PC_ODR_ODR7 = coding>>2;
-		PC_ODR_ODR6 = coding>>1;
-		PC_ODR_ODR5 = coding>>0;
+		PC_ODR_ODR4 = coding>>6;
+		PC_ODR_ODR5 = coding>>5;
+		PD_ODR_ODR6 = coding>>4;
+		PA_ODR_ODR1 = coding>>3;
+		PD_ODR_ODR5 = coding>>2;
+		PC_ODR_ODR7 = coding>>1;
+		PC_ODR_ODR6 = coding>>0;
 		LED_CS0 = SEG_ON;
 	}
 	else if(u8_ledIndex == 1)
@@ -111,40 +111,40 @@ void drv_ledHandler2ms(void)
 				}
 			}
 		}
-		PA_ODR_ODR2 = coding>>6;
-		PA_ODR_ODR1 = coding>>5;
-		PD_ODR_ODR3 = coding>>4;
-		PD_ODR_ODR4 = coding>>3;
-		PC_ODR_ODR7 = coding>>2;
-		PC_ODR_ODR6 = coding>>1;
-		PC_ODR_ODR5 = coding>>0;
+		PC_ODR_ODR4 = coding>>6;
+		PC_ODR_ODR5 = coding>>5;
+		PD_ODR_ODR6 = coding>>4;
+		PA_ODR_ODR1 = coding>>3;
+		PD_ODR_ODR5 = coding>>2;
+		PC_ODR_ODR7 = coding>>1;
+		PC_ODR_ODR6 = coding>>0;
 		LED_CS1 = SEG_ON;
 	}
 	else if (u8_ledIndex == 2)
 	{
-		PA_ODR_ODR2 = 1;//h
-		PA_ODR_ODR1 = 1;//g
-		PD_ODR_ODR4 = 1;//f
-		PD_ODR_ODR3 = 1;//e
-		PC_ODR_ODR7 = 1;//c
-		PC_ODR_ODR6 = 1;//b
-		PC_ODR_ODR5 = 1;//a
-		
-		PD_DDR_DDR4 = 0;
-		PD_CR1_C14 = 1;
-		PD_CR2_C24 = 0;
-		
-		PD_DDR_DDR3 = 0;
-		PD_CR1_C13 = 1;
-		PD_CR2_C23 = 0;
+		PC_ODR_ODR4 = 1;//g
+		PC_ODR_ODR5 = 1;//h
+		PD_ODR_ODR6 = 1;//e
+		PA_ODR_ODR1 = 1;//d
+		PD_ODR_ODR5 = 1;//c
+		PC_ODR_ODR7 = 1;//b
+		PC_ODR_ODR6 = 1;//a
 		
 		PC_DDR_DDR6 = 0;
 		PC_CR1_C16 = 1;
 		PC_CR2_C26 = 0;
+		
+		PC_DDR_DDR4 = 0;
+		PC_CR1_C14 = 1;
+		PC_CR2_C24 = 0;
+		
+		PC_DDR_DDR7 = 0;
+		PC_CR1_C17 = 1;
+		PC_CR2_C27 = 0;
 	}
 	else
 	{
-		if(PD_IDR_IDR4 == 0)
+		if(PC_IDR_IDR7 == 0)
 		{
 			b_keyStart = TRUE;
 		}
@@ -152,7 +152,7 @@ void drv_ledHandler2ms(void)
 		{
 			b_keyStart = FALSE;
 		}
-		if(PD_IDR_IDR3 == 0)
+		if(PC_IDR_IDR6 == 0)
 		{
 			b_keyTimeSet = TRUE;
 		}
@@ -160,7 +160,7 @@ void drv_ledHandler2ms(void)
 		{
 			b_keyTimeSet = FALSE;
 		}
-		if(PC_IDR_IDR6 == 0)
+		if(PC_IDR_IDR4 == 0)
 		{
 			b_keyTempSet = TRUE;
 		}
@@ -169,13 +169,17 @@ void drv_ledHandler2ms(void)
 			b_keyTempSet = FALSE;
 		}
 		
-		PD_DDR |= 0xF9;
-		PD_CR1 |= 0xF9;
-		PD_CR2 &= 0x06;
+		PC_DDR_DDR6 = 1;
+		PC_CR1_C16 = 1;
+		PC_CR2_C26 = 0;
 		
-		PC_DDR |= 0xFF;
-		PC_CR1 |= 0xFF;
-		PC_CR2 &= (UINT8)(~0xFF);
+		PC_DDR_DDR4 = 1;
+		PC_CR1_C14 = 1;
+		PC_CR2_C24 = 0;
+		
+		PC_DDR_DDR7 = 1;
+		PC_CR1_C17 = 1;
+		PC_CR2_C27 = 0;
 	}
 }
 

@@ -16,6 +16,12 @@ void sys_taskGpioInit(void)
     PA_DDR |= 0x0F;
     PA_CR1 |= 0x0F;
     PA_CR2 &= (UINT8)(~0x0F);
+	PA_ODR = 0x00;
+	
+    PC_DDR |= 0xFF;
+    PC_CR1 |= 0xFF;
+    PC_CR2 &= (UINT8)(~0xFF);
+	PC_ODR = 0x00;
 	
 	PD_DDR_DDR2 = 0;
 	PD_CR1_C12 = 0;
@@ -23,11 +29,9 @@ void sys_taskGpioInit(void)
 	
 	PD_DDR |= 0xF9;
 	PD_CR1 |= 0xF9;
-	PD_CR2 &= 0x06;
+	PD_CR2 &= (UINT8)(~0xF9);
+	PD_ODR = 0x08;
 	
-    PC_DDR |= 0xFF;
-    PC_CR1 |= 0xFF;
-    PC_CR2 &= (UINT8)(~0xFF);
 }
 
 void sys_taskInit(void)
@@ -58,18 +62,18 @@ void sys_taskHandler2ms(void)
 int main(void)
 {
     CLK_CKDIVR = 0x00;				//cpu clock is HSI 16MHz
+    sys_taskGpioInit();
 	drv_scrInit();
 	drv_ledInit();
-//	sys_iwdgInit();
-    sys_taskGpioInit();
+	sys_iwdgInit();
     sys_taskInit();
 	hwa_ntcInit();
     app_configInit();
 	app_testInit();
 	enable_interrupt();
     while(1)
-    {	
-//        sys_iwdgReset();
+    {
+        sys_iwdgReset();
         if(b_taskHandler2ms)
         {
             b_taskHandler2ms = FALSE;
@@ -89,7 +93,7 @@ int main(void)
 				sys_taskCycle500ms();
 			}
         }
-//		sleep();
+		sleep();
     }
 }
 

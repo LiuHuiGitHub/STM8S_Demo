@@ -4,7 +4,6 @@
 #define NUM_OF_TEMP		(100)
 CONST UINT16 c_u16_ntcTable[NUM_OF_TEMP] = 
 {
-142 	,
 148 	,
 154 	,
 160 	,
@@ -103,7 +102,9 @@ CONST UINT16 c_u16_ntcTable[NUM_OF_TEMP] =
 891 	,
 895 	,
 898 	,
-901 	,//100¡æ
+901 	,
+904 	,
+//100¡æ
 };
 
 
@@ -119,9 +120,9 @@ UINT16 u16_thresholdL;
 void hwa_ntcHandler500ms(void)
 {
 	UINT16 u16_adValue;
-	UINT32 u32_vccValue;
+//	UINT32 u32_vccValue;
 	UINT8 temp;
-	u32_vccValue = sys_adcValue(7);
+//	u32_vccValue = sys_adcValue(7);
 	u16_adValue = sys_adcValue(3);
 	for(temp=0; temp< NUM_OF_TEMP; temp++)
 	{
@@ -142,7 +143,7 @@ void hwa_ntcHandler500ms(void)
 	{
 		if(temp > u8_tempOld)
 		{
-			u16_thresholdH = (c_u16_ntcTable[temp+1]-c_u16_ntcTable[temp])/2+c_u16_ntcTable[temp];
+			u16_thresholdH = (c_u16_ntcTable[u8_tempOld+1]-c_u16_ntcTable[u8_tempOld])/3+c_u16_ntcTable[u8_tempOld];
 			if(u16_adValue >= u16_thresholdH)
 			{
 				u8_tempOld = temp;
@@ -154,7 +155,7 @@ void hwa_ntcHandler500ms(void)
 		}
 		else if(temp < u8_tempOld)
 		{
-			u16_thresholdL = c_u16_ntcTable[temp]-(c_u16_ntcTable[temp]-c_u16_ntcTable[temp-1])/2;
+			u16_thresholdL = c_u16_ntcTable[temp]-(c_u16_ntcTable[temp]-c_u16_ntcTable[temp-1])/3;
 			if(u16_adValue <= u16_thresholdL)
 			{
 				u8_tempOld = temp;

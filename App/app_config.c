@@ -12,8 +12,18 @@ UINT8 u8_setTemp = 0;
 
 void app_configInit(void)
 {
+	BOOL flag = FALSE;
 	hwa_eepromInit();
 	if (app_configRead() == FALSE)
+	{
+		flag = TRUE;
+	}
+	if(flag
+		|| s_System.Time<30
+		|| s_System.Time>90
+		||s_System.Temp<30
+		|| s_System.Temp>48
+	)
 	{
 		s_System.Time = 30;
 		s_System.Temp = 40;
